@@ -6,12 +6,14 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../Providers/AuthProvider';
 import districtsData from '../../assets/districts.json';
 import upazilasData from '../../assets/upazilas.json';
+import useAxiosPublic from '../../hooks/useAxiosPublic'; // Import your custom hook
 
 const Register = () => {
   const { register, handleSubmit, reset, formState: { errors }, watch } = useForm();
-  const { createUser,  updateUserProfile } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
   const [selectedDistrict, setSelectedDistrict] = useState('');
+  const axiosPublic = useAxiosPublic(); // Use your custom hook
 
   const onSubmit = (data) => {
     console.log(data);
@@ -21,16 +23,29 @@ const Register = () => {
         
         updateUserProfile(data.name, data.avatar)
         .then(()=>{
-            console.log('User profile info Updated')
-            reset()
-            Swal.fire({
-              icon: 'success',
-              title: 'Registration Successful',
-              text: 'You have successfully registered!',
-            });
+            console.log('User profile info Updated');
+            // Save user info to the server
+            axiosPublic.post('/users', data)
+              .then(response => {
+                console.log('User info saved:', response.data);
+                reset();
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Registration Successful',
+                  text: 'You have successfully registered!',
+                });
+                navigate('/login');
+              })
+              .catch(error => {
+                console.error('Error saving user info:', error);
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Saving User Info Failed',
+                  text: error.message,
+                });
+              });
         })
-        .catch(error=>console.log(error))
-        navigate('/login');
+        .catch(error => console.log(error));
       })
       .catch((error) => {
         console.error('Error registering user:', error);
