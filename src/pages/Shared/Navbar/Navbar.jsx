@@ -1,10 +1,45 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
+      const { user, logOut } = useAuth()
+
+
+      const handleLogout = () => {
+            Swal.fire({
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, log out!'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                        logOut()
+                              .then(() => {
+                                    Swal.fire(
+                                          'Logged Out!',
+                                          'You have been logged out successfully.',
+                                          'success'
+                                    );
+                              })
+                              .catch(error => {
+                                    console.log(error);
+                                    Swal.fire(
+                                          'Error!',
+                                          'There was an error logging out.',
+                                          'error'
+                                    );
+                              });
+                  }
+            });
+      };
       const navOption = <>
-            <li><NavLink>Home</NavLink></li>
-            <li><a>Item 2</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="founding">Found Blood</Link></li>
             <li><a>Item 3</a></li>
       </>
       return (
@@ -38,30 +73,36 @@ const Navbar = () => {
                               {navOption}
                         </ul>
                   </div>
-                  <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                              <div className="w-10 rounded-full">
-                                    <img
-                                          alt="Tailwind CSS Navbar component"
-                                          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                  {
+                        user && user.email ?
+                              <div className="dropdown dropdown-end">
+                                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                          <div className="w-10 rounded-full">
+                                                <img
+                                                      alt="Tailwind CSS Navbar component"
+                                                      src={user.avatar} />
+                                          </div>
+                                    </div>
+                                    <ul
+                                          tabIndex={0}
+                                          className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                                          <li>
+                                                <a className="justify-between">
+                                                      Dashboard
+                                                     
+                                                </a>
+                                          </li>
+                                          
+                                          <li><a>Settings</a></li>
+                                          <li><button onClick={handleLogout} className='btn'>Logout</button></li>
+                                    </ul>
                               </div>
-                        </div>
-                        <ul
-                              tabIndex={0}
-                              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                              <li>
-                                    <a className="justify-between">
-                                          Profile
-                                          <span className="badge">New</span>
-                                    </a>
-                              </li>
-                              <li><a>Settings</a></li>
-                              <li><a>Logout</a></li>
-                        </ul>
-                  </div>
-                  <div className="navbar-end">
-                        <a className="btn">Button</a>
-                  </div>
+                              : <div className="navbar-end">
+                                    <a className="btn"><Link to="login">Login</Link></a>
+                              </div>
+                  }
+
+            
             </div>
       );
 };

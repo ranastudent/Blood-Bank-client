@@ -8,6 +8,8 @@ import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import SearchDonars from "../pages/SearchDonars/SearchDonars";
 import Login from "../pages/Login/Login";
+import FoundingPage from "../Components/FoundingPage.jsx/FoundingPage";
+import PrivateRoute from "./PrivateRoute";
 
   export  const router = createBrowserRouter([
       {
@@ -31,7 +33,11 @@ import Login from "../pages/Login/Login";
             {
                   path:"searchDonars",
                   element:<SearchDonars></SearchDonars>
-            }
+            },
+            {
+                  path:"founding",
+                  element:<PrivateRoute><FoundingPage></FoundingPage></PrivateRoute>
+            },
         ]
       },
     ]);

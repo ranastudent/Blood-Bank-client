@@ -10,9 +10,9 @@ const Banner = () => {
                   }}>
                   <div className="hero-overlay bg-opacity-60"></div>
                   <div className="hero-content text-neutral-content text-center">
-                        <div className="max-w-md space-x-28">
-                              <button className="btn btn-error"><Link to="register">Join as a donor</Link></button>
-                              <button className="btn btn-error"><Link to="searchDonars">Search Donors</Link></button>
+                        <div className="max-w-md space-x-28 flex justify-between">
+                              <button className="btn btn-md btn-error "><Link to="register">Join as a donor</Link></button>
+                              <button className="btn btn-md btn-error "><Link to="searchDonars">Search Donors</Link></button>
                         </div>
                   </div>
             </div>
