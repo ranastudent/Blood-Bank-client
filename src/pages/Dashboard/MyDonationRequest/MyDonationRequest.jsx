@@ -5,21 +5,19 @@ import { AuthContext } from '../../../Providers/AuthProvider';
 
 const MyDonationRequest = () => {
   const { user } = useContext(AuthContext);
-  const [statusFilter, setStatusFilter] = useState('');
   const [page, setPage] = useState(1);
   const limit = 10;
 
   const axiosPublic = useAxiosPublic();
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['donationRequests', user?.email, statusFilter, page],
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ['donationRequests', user?.email, page],
     queryFn: async () => {
       if (!user?.email) {
         throw new Error('User email is not available');
       }
       const response = await axiosPublic.get(`/donation-requests/${user.email}`, {
         params: {
-          status: statusFilter,
           page,
           limit,
         },
@@ -29,17 +27,18 @@ const MyDonationRequest = () => {
     enabled: !!user?.email, // Only run the query if user email is available
   });
 
-  console.log('data:', data);
-  console.log('isLoading:', isLoading);
-  console.log('error:', error);
-
-  const handleStatusFilterChange = (e) => {
-    setStatusFilter(e.target.value);
-    setPage(1); // Reset to first page when filter changes
+  const handleStatusChange = async (id, status) => {
+    try {
+      await axiosPublic.patch(`/donation-requests/${id}/status`, { status });
+      refetch();
+    } catch (error) {
+      console.error('Error updating status:', error);
+    }
   };
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
+    refetch();
   };
 
   if (!user) return <div>Loading user data...</div>;
@@ -53,16 +52,6 @@ const MyDonationRequest = () => {
   return (
     <div>
       <h2>My Donation Requests {donationRequests.length}</h2>
-      <div>
-        <label>Status Filter:</label>
-        <select value={statusFilter} onChange={handleStatusFilterChange}>
-          <option value="">All</option>
-          <option value="pending">Pending</option>
-          <option value="inprogress">In Progress</option>
-          <option value="done">Done</option>
-          <option value="canceled">Canceled</option>
-        </select>
-      </div>
       <table>
         <thead>
           <tr>
@@ -88,7 +77,17 @@ const MyDonationRequest = () => {
               <td>{request.bloodGroup}</td>
               <td>{request.donationDate}</td>
               <td>{request.donationTime}</td>
-              <td>{request.status}</td>
+              <td>
+                <select
+                  value={request.status}
+                  onChange={(e) => handleStatusChange(request._id, e.target.value)}
+                >
+                  <option value="pending">Pending</option>
+                  <option value="inprogress">In Progress</option>
+                  <option value="done">Done</option>
+                  <option value="canceled">Canceled</option>
+                </select>
+              </td>
             </tr>
           ))}
         </tbody>
