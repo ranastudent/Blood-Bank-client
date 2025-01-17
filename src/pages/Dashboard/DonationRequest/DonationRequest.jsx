@@ -38,12 +38,14 @@ const DonationRequest = () => {
       });
       return;
     }
+    const selectedDistrict = districts.find(district => district.id === recipientDistrict);
+    const selectedUpazila = upazilas.find(upazila => upazila.id === recipientUpazila);
     const newRequest = {
       requesterName: user.name,
       requesterEmail: user.email,
       recipientName,
-      recipientDistrict,
-      recipientUpazila,
+      recipientDistrict: selectedDistrict ? selectedDistrict.name : '',
+      recipientUpazila: selectedUpazila ? selectedUpazila.name : '',
       hospitalName,
       fullAddress,
       bloodGroup,
@@ -77,24 +79,24 @@ const DonationRequest = () => {
   console.log('User data:', user);
 
   return (
-    <div>
-      <h3>Donation Request</h3>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Requester Name:</label>
-          <input type="text" value={user.name} readOnly />
+    <div className="p-4">
+      <h3 className="text-2xl font-bold mb-4">Donation Request</h3>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="form-control">
+          <label className="label">Requester Name:</label>
+          <input type="text" value={user.name} readOnly className="input input-bordered" />
         </div>
-        <div>
-          <label>Requester Email:</label>
-          <input type="email" value={user.email} readOnly />
+        <div className="form-control">
+          <label className="label">Requester Email:</label>
+          <input type="email" value={user.email} readOnly className="input input-bordered" />
         </div>
-        <div>
-          <label>Recipient Name:</label>
-          <input type="text" value={recipientName} onChange={(e) => setRecipientName(e.target.value)} required />
+        <div className="form-control">
+          <label className="label">Recipient Name:</label>
+          <input type="text" value={recipientName} onChange={(e) => setRecipientName(e.target.value)} required className="input input-bordered" />
         </div>
-        <div>
-          <label>Recipient District:</label>
-          <select value={recipientDistrict} onChange={(e) => setRecipientDistrict(e.target.value)} required>
+        <div className="form-control">
+          <label className="label">Recipient District:</label>
+          <select value={recipientDistrict} onChange={(e) => setRecipientDistrict(e.target.value)} required className="select select-bordered">
             <option value="">Select District</option>
             {districts.map((district) => (
               <option key={district.id} value={district.id}>
@@ -103,9 +105,9 @@ const DonationRequest = () => {
             ))}
           </select>
         </div>
-        <div>
-          <label>Recipient Upazila:</label>
-          <select value={recipientUpazila} onChange={(e) => setRecipientUpazila(e.target.value)} required>
+        <div className="form-control">
+          <label className="label">Recipient Upazila:</label>
+          <select value={recipientUpazila} onChange={(e) => setRecipientUpazila(e.target.value)} required className="select select-bordered">
             <option value="">Select Upazila</option>
             {upazilas
               .filter((upazila) => upazila.district_id === recipientDistrict)
@@ -116,17 +118,17 @@ const DonationRequest = () => {
               ))}
           </select>
         </div>
-        <div>
-          <label>Hospital Name:</label>
-          <input type="text" value={hospitalName} onChange={(e) => setHospitalName(e.target.value)} required />
+        <div className="form-control">
+          <label className="label">Hospital Name:</label>
+          <input type="text" value={hospitalName} onChange={(e) => setHospitalName(e.target.value)} required className="input input-bordered" />
         </div>
-        <div>
-          <label>Full Address:</label>
-          <input type="text" value={fullAddress} onChange={(e) => setFullAddress(e.target.value)} required />
+        <div className="form-control">
+          <label className="label">Full Address:</label>
+          <input type="text" value={fullAddress} onChange={(e) => setFullAddress(e.target.value)} required className="input input-bordered" />
         </div>
-        <div>
-          <label>Blood Group:</label>
-          <select value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)} required>
+        <div className="form-control">
+          <label className="label">Blood Group:</label>
+          <select value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)} required className="select select-bordered">
             <option value="">Select Blood Group</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
@@ -138,19 +140,19 @@ const DonationRequest = () => {
             <option value="O-">O-</option>
           </select>
         </div>
-        <div>
-          <label>Donation Date:</label>
-          <input type="date" value={donationDate} onChange={(e) => setDonationDate(e.target.value)} required />
+        <div className="form-control">
+          <label className="label">Donation Date:</label>
+          <input type="date" value={donationDate} onChange={(e) => setDonationDate(e.target.value)} required className="input input-bordered" />
         </div>
-        <div>
-          <label>Donation Time:</label>
-          <input type="time" value={donationTime} onChange={(e) => setDonationTime(e.target.value)} required />
+        <div className="form-control">
+          <label className="label">Donation Time:</label>
+          <input type="time" value={donationTime} onChange={(e) => setDonationTime(e.target.value)} required className="input input-bordered" />
         </div>
-        <div>
-          <label>Request Message:</label>
-          <textarea value={requestMessage} onChange={(e) => setRequestMessage(e.target.value)} required />
+        <div className="form-control">
+          <label className="label">Request Message:</label>
+          <textarea value={requestMessage} onChange={(e) => setRequestMessage(e.target.value)} required className="textarea textarea-bordered" />
         </div>
-        <button type="submit">Request</button>
+        <button type="submit" className="btn btn-primary">Request</button>
       </form>
     </div>
   );

@@ -1,39 +1,54 @@
 import React, { useState, useContext } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import axios from 'axios';
 import { AuthContext } from '../../../Providers/AuthProvider';
 
-const MyDonationRequest = () => {
+const fetchDonationRequests = async ({ queryKey }) => {
+  const [_, page, statusFilter] = queryKey;
+  const response = await axios.get('http://localhost:5000/donation-requests', {
+    params: {
+      page,
+      status: statusFilter,
+    },
+  });
+  return response.data;
+};
+
+const updateDonationRequestStatus = async (id, status) => {
+  const response = await axios.patch(`http://localhost:5000/donation-requests/${id}/status`, { status });
+  return response.data;
+};
+
+const AllBloodDonationRequest = () => {
   const { user } = useContext(AuthContext);
   const [page, setPage] = useState(1);
+  const [statusFilter, setStatusFilter] = useState('');
   const limit = 10;
-
-  const axiosPublic = useAxiosPublic();
   const queryClient = useQueryClient();
 
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ['donationRequests', user?.email, page],
-    queryFn: async () => {
-      if (!user?.email) {
-        throw new Error('User email is not available');
-      }
-      const response = await axiosPublic.get(`/donation-requests/${user.email}`, {
-        params: {
-          page,
-          limit,
-        },
-      });
-      return response.data;
-    },
-    enabled: !!user?.email, // Only run the query if user email is available
+    queryKey: ['donationRequests', page, statusFilter],
+    queryFn: fetchDonationRequests,
+    keepPreviousData: true,
   });
 
   const handleStatusChange = async (id, status) => {
     try {
-      await axiosPublic.patch(`/donation-requests/${id}/status`, { status });
+      await updateDonationRequestStatus(id, status);
+      queryClient.invalidateQueries(['donationRequests', page, statusFilter]);
       queryClient.invalidateQueries(['donationRequests', user?.email]);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: `Donation request status updated to ${status}!`,
+      });
     } catch (error) {
-      console.error('Error updating status:', error);
+      console.error('Error updating donation request status:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to update donation request status.',
+      });
     }
   };
 
@@ -42,17 +57,24 @@ const MyDonationRequest = () => {
     refetch();
   };
 
-  if (!user) return <div>Loading user data...</div>;
   if (isLoading) return <div>Loading donation requests...</div>;
   if (error) return <div>Error loading donation requests</div>;
 
   const { donationRequests, total } = data;
   const totalPages = Math.ceil(total / limit);
-  console.log(donationRequests);
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">My Donation Requests ({donationRequests.length})</h2>
+      <h2 className="text-2xl font-bold mb-4">All Blood Donation Requests ({donationRequests.length})</h2>
+      <div className="mb-4">
+        <label className="label">Filter by Status:</label>
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="select select-bordered">
+          <option value="">All</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
@@ -112,4 +134,4 @@ const MyDonationRequest = () => {
   );
 };
 
-export default MyDonationRequest;
+export default AllBloodDonationRequest;

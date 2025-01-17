@@ -68,8 +68,12 @@ const Profile = () => {
   return (
     <div>
       <h2>Profile</h2>
+
       {userInfo && (
         <form onSubmit={handleSubmit(onSubmit)}>
+          <div className='top-0 right-0'>
+            <img className='w-20 h-20 rounded-full' src={userInfo.avatar} alt="" />
+          </div>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Name</span>
