@@ -19,6 +19,7 @@ import AllUser from "../pages/Dashboard/AllUser/AllUser";
 import AllBloodDonationRequest from "../pages/Dashboard/AllBloodDonationRequest/AllBloodDonationRequest";
 import AdminRoute from "./AdminRoute";
 import RoleRoute from "./RoleRoute";
+import ContantMangment from "../pages/Dashboard/ContentMangment/ContantMangment";
 
 export const router = createBrowserRouter([
       {
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
                   {
                         path:"all-blood-donation-request",
                         element:<AllBloodDonationRequest></AllBloodDonationRequest>
+                  },
+                  {
+                        path:"content-Management",
+                        element:<ContantMangment></ContantMangment>
                   },
                   //all user route
                   {

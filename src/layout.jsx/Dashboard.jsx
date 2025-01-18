@@ -43,9 +43,14 @@ const Dashboard = () => {
               </li>
             )}
             {(user1.role === 'admin' || user1.role === 'volunteer') && (
-              <li className="pr-4">
-                <Link to="all-blood-donation-request">All Blood Donation Request</Link>
-              </li>
+              <>
+                <li className="pr-4">
+                  <Link to="all-blood-donation-request">All Blood Donation Request</Link>
+                </li>
+                <li className="pr-4">
+                  <Link to="content-Management">Content Management</Link>
+                </li>
+              </>
             )}
             <li className="pr-4">
               <Link to="profile">Profile</Link>
