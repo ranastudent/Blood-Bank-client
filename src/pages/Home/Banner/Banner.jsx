@@ -12,7 +12,7 @@ const Banner = () => {
                   <div className="hero-content text-neutral-content text-center">
                         <div className="max-w-md space-x-28 flex justify-between">
                               <button className="btn btn-md btn-error "><Link to="register">Join as a donor</Link></button>
-                              <button className="btn btn-md btn-error "><Link to="searchDonars">Search Donors</Link></button>
+                              <Link to="searchPage"><button className="btn btn-md btn-error ">Search Donors</button></Link>
                         </div>
                   </div>
             </div>

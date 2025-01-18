@@ -56,7 +56,7 @@ const Navbar = () => {
   const navOption = <>
     <li><Link to="/">Home</Link></li>
     <li><Link to="founding">Found Blood</Link></li>
-    <li><a>Item 3</a></li>
+    <li><Link to="searchPage">Search Page</Link></li>
   </>;
 
   return (

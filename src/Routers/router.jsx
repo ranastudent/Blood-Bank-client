@@ -21,6 +21,7 @@ import AdminRoute from "./AdminRoute";
 import RoleRoute from "./RoleRoute";
 import ContantMangment from "../pages/Dashboard/ContentMangment/ContantMangment";
 import AddBlog from "../pages/Dashboard/AddBlog/AddBlog";
+import SearchPage from "../pages/Home/SearchPage/SearchPage";
 
 export const router = createBrowserRouter([
       {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
                   {
                         path: "founding",
                         element: <PrivateRoute><FoundingPage></FoundingPage></PrivateRoute>
+                  },
+                  {
+                        path:"searchPage",
+                        element:<SearchPage></SearchPage>
                   },
             ]
       },
@@ -92,6 +97,7 @@ export const router = createBrowserRouter([
                         path:"myDonationRequest",
                         element:<MyDonationRequest></MyDonationRequest>
                   },
+                 
             ]
       },
 ]);
