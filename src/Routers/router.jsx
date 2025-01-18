@@ -22,6 +22,7 @@ import RoleRoute from "./RoleRoute";
 import ContantMangment from "../pages/Dashboard/ContentMangment/ContantMangment";
 import AddBlog from "../pages/Dashboard/AddBlog/AddBlog";
 import SearchPage from "../pages/Home/SearchPage/SearchPage";
+import BloodDonationRequest from "../pages/Home/BloodDonationRequest/BloodDonationRequest";
 
 export const router = createBrowserRouter([
       {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
                   {
                         path:"searchPage",
                         element:<SearchPage></SearchPage>
+                  },
+                  {
+                        path:"blood-donation-request",
+                        element:<BloodDonationRequest></BloodDonationRequest>
                   },
             ]
       },
