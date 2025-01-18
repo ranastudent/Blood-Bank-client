@@ -27,10 +27,21 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
-  const logOut = () => {
-    setLoading(true);
-    return signOut(auth);
+  const logOut = async () => {
+    try {
+      setLoading(true);
+      localStorage.removeItem('access_token'); // Clear token
+      setUser(null);  // Clear user data in context
+      await signOut(auth);  // Firebase sign-out
+      window.location.href = '/login';  // Redirect to login page
+    } catch (error) {
+      console.error('Error during logout:', error);
+    } finally {
+      setLoading(false);
+    }
   };
+  
+  
 
   const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {

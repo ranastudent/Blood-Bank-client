@@ -1,16 +1,18 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAuth from './useAuth';  // Make sure this path is correct
 
 const useAxiosSecure = () => {
+  const { logOut } = useAuth();  // Destructure logOut from your auth context
   const navigate = useNavigate();
 
   const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000', // Replace with your API base URL
+    baseURL: 'http://localhost:5000',  // Update to your API's base URL
   });
 
   useEffect(() => {
-    // Request interceptor to include the token in the headers
+    // Request Interceptor
     axiosSecure.interceptors.request.use(
       (config) => {
         const token = localStorage.getItem('access_token');
@@ -22,19 +24,21 @@ const useAxiosSecure = () => {
       (error) => Promise.reject(error)
     );
 
-    // Response interceptor to handle token expiration
+    // Response Interceptor
     axiosSecure.interceptors.response.use(
       (response) => response,
-      (error) => {
-        if (error.response && error.response.status === 401) {
-          // Token is invalid or expired
-          localStorage.removeItem('access_token'); // Clear the token
-          navigate('/login', { replace: true }); // Redirect to the login page
+      async (error) => {
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+          // Unauthorized or Forbidden response
+          localStorage.removeItem('access_token');  // Clear the token
+          await logOut();  // Ensure logout function is called to clear the user session
+          alert('Session expired or unauthorized access. Please log in again.');
+          navigate('/login', { replace: true });  // Redirect to login
         }
         return Promise.reject(error);
       }
     );
-  }, [navigate, axiosSecure]);
+  }, [logOut, navigate]);
 
   return axiosSecure;
 };
