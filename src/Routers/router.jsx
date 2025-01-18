@@ -24,6 +24,7 @@ import AddBlog from "../pages/Dashboard/AddBlog/AddBlog";
 import SearchPage from "../pages/Home/SearchPage/SearchPage";
 import BloodDonationRequest from "../pages/Home/BloodDonationRequest/BloodDonationRequest";
 import BloodDonationRequestDetail from "../pages/Home/BloodDonationRequestDetails/BloodDonationRequestDetail";
+import Blog from "../pages/Home/Blog/Blog";
 
 export const router = createBrowserRouter([
       {
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
                         element: <PrivateRoute>
                           <BloodDonationRequestDetail></BloodDonationRequestDetail>
                         </PrivateRoute>,
+                  },
+                  {
+                        path:"blog",
+                        element:<Blog></Blog>
                   },
             ]
       },
