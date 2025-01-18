@@ -23,6 +23,7 @@ import ContantMangment from "../pages/Dashboard/ContentMangment/ContantMangment"
 import AddBlog from "../pages/Dashboard/AddBlog/AddBlog";
 import SearchPage from "../pages/Home/SearchPage/SearchPage";
 import BloodDonationRequest from "../pages/Home/BloodDonationRequest/BloodDonationRequest";
+import BloodDonationRequestDetail from "../pages/Home/BloodDonationRequestDetails/BloodDonationRequestDetail";
 
 export const router = createBrowserRouter([
       {
@@ -58,6 +59,12 @@ export const router = createBrowserRouter([
                   {
                         path:"blood-donation-request",
                         element:<BloodDonationRequest></BloodDonationRequest>
+                  },
+                  {
+                        path: "blood-donation-request-details",
+                        element: <PrivateRoute>
+                          <BloodDonationRequestDetail></BloodDonationRequestDetail>
+                        </PrivateRoute>,
                   },
             ]
       },
