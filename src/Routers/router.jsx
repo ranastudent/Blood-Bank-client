@@ -20,6 +20,7 @@ import AllBloodDonationRequest from "../pages/Dashboard/AllBloodDonationRequest/
 import AdminRoute from "./AdminRoute";
 import RoleRoute from "./RoleRoute";
 import ContantMangment from "../pages/Dashboard/ContentMangment/ContantMangment";
+import AddBlog from "../pages/Dashboard/AddBlog/AddBlog";
 
 export const router = createBrowserRouter([
       {
@@ -70,7 +71,13 @@ export const router = createBrowserRouter([
                   },
                   {
                         path:"content-Management",
-                        element:<ContantMangment></ContantMangment>
+                        element:<ContantMangment></ContantMangment>,
+                        children: [
+                              {
+                                    path:"add-blog",
+                                    element:<AddBlog></AddBlog>
+                              },
+                        ]
                   },
                   //all user route
                   {
