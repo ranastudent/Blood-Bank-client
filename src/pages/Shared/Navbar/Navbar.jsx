@@ -55,7 +55,7 @@ const Navbar = () => {
 
   const navOption = <>
     <li><Link to="/">Home</Link></li>
-    <li><Link to="founding">Found Blood</Link></li>
+    <li><Link to="founding"> Funding Page</Link></li>
     <li><Link to="searchPage">Search Page</Link></li>
     <li><Link to="blood-donation-request">Blood Donation Request</Link></li>
     <li><Link to="blog">Blog</Link></li>

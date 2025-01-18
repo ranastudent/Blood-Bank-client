@@ -1,9 +1,10 @@
 import React from 'react';
+import Payment from '../Payment/Payment';
 
 const FoundingPage = () => {
       return (
             <div>
-                  <h2>Founding</h2>
+                  <Payment></Payment>
             </div>
       );
 };
