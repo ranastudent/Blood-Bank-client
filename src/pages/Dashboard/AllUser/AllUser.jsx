@@ -118,7 +118,7 @@ const AllUser = () => {
                 </td>
                 <td>{user.email}</td>
                 <td>{user.name}</td>
-                <td>{user.role}</td>
+                <td>{user.role === 'user' ? 'donor' : user.role}</td>
                 <td>{user.status}</td>
                 <td>
                   <div className="dropdown dropdown-left">
@@ -140,7 +140,7 @@ const AllUser = () => {
                         <button onClick={() => handleRoleChange(user._id, 'admin')} disabled={user.status === 'blocked'}>Make Admin</button>
                       </li>
                       <li>
-                        <button onClick={() => handleRoleChange(user._id, 'user')} disabled={user.status === 'blocked'}>Make User</button>
+                        <button onClick={() => handleRoleChange(user._id, 'donor')} disabled={user.status === 'blocked'}>Make Donor</button>
                       </li>
                     </ul>
                   </div>

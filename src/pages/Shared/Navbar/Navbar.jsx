@@ -14,7 +14,8 @@ const Navbar = () => {
     queryFn: async () => {
       if (user && user.email) {
         const response = await axiosPublic.get('/users');
-        return response.data.find(u => u.email === user.email);
+        console.log('Response data:', response.data);
+        return response.data.find(u => u.email === user.email) || null;
       }
       return null;
     },
@@ -114,7 +115,7 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="navbar-end">
-            <a className="btn"><Link to="login">Login</Link></a>
+            <div className="btn"><Link to="login">Login</Link></div>
           </div>
         )
       }

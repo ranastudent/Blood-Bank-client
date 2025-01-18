@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import districts from '../../../assets/districts.json';
 import upazilas from '../../../assets/upazilas.json';
+import useAuth from '../../../Hooks/useAuth';
 
 const DonationRequest = () => {
   const [recipientName, setRecipientName] = useState('');
@@ -15,33 +16,15 @@ const DonationRequest = () => {
   const [donationDate, setDonationDate] = useState('');
   const [donationTime, setDonationTime] = useState('');
   const [requestMessage, setRequestMessage] = useState('');
-
+  const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
-
-  const { data: users, isLoading, error } = useQuery({
-    queryKey: ['users'],
-    queryFn: async () => {
-      const response = await axiosPublic.get('/users');
-      return response.data;
-    },
-  });
-
-  const user = users && users.length > 0 ? users[0] : null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!user || user.status !== 'active') {
-      Swal.fire({
-        icon: 'error',
-        title: 'Blocked User',
-        text: 'Blocked users cannot create donation requests.',
-      });
-      return;
-    }
     const selectedDistrict = districts.find(district => district.id === recipientDistrict);
     const selectedUpazila = upazilas.find(upazila => upazila.id === recipientUpazila);
     const newRequest = {
-      requesterName: user.name,
+      requesterName: user.displayName,
       requesterEmail: user.email,
       recipientName,
       recipientDistrict: selectedDistrict ? selectedDistrict.name : '',
@@ -73,18 +56,13 @@ const DonationRequest = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading user data</div>;
-
-  console.log('User data:', user);
-
   return (
     <div className="p-4">
       <h3 className="text-2xl font-bold mb-4">Donation Request</h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="form-control">
           <label className="label">Requester Name:</label>
-          <input type="text" value={user.name} readOnly className="input input-bordered" />
+          <input type="text" value={user.displayName} readOnly className="input input-bordered" />
         </div>
         <div className="form-control">
           <label className="label">Requester Email:</label>
