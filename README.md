@@ -22,6 +22,4 @@ A web application for managing blood donations and transfusions. Users can regis
 - Express.js
 
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/blood-bank-website.git
+
