@@ -1,8 +1,27 @@
-# React + Vite
+# Blood Bank Website
+## Live Side Link
+https://blood-donation-client-d128e.web.app
+## Description
+A web application for managing blood donations and transfusions. Users can register as donors, volunteers, or admins to help manage and facilitate blood donations.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
+- User roles: Admin, Volunteer, Donor (default)
+- Manage blood donation requests
+- Track blood inventory
+- Schedule donation appointments
+- Notifications for upcoming donation drives
 
-Currently, two official plugins are available:
+## Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Frontend
+- React
+- Tailwind CSS
+
+### Backend
+- Node.js
+- Express.js
+
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/blood-bank-website.git
