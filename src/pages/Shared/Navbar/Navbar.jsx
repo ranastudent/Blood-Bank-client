@@ -116,7 +116,7 @@ const Navbar = () => {
             </ul>
           </div>
         ) : (
-          <div class="">
+          <div class="navbar-end">
             <div class="btn mr-10">
               <Link class="p-10" to="login">Login</Link>
             </div>
