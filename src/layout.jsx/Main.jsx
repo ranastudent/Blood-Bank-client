@@ -6,7 +6,7 @@ import Navbar from '../pages/Shared/Navbar/Navbar';
 const Main = () => {
       return (
             <div>
-                  <div className=''>
+                  <div className='w-full'>
                         <Navbar></Navbar>
                   </div>
                   <div className='min-h-screen mt-20'>
