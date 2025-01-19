@@ -2,6 +2,8 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../Hooks/useAuth';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import { FaUsers } from 'react-icons/fa';
+import { FaBook } from 'react-icons/fa6';
 
 const AdminHome = () => {
   const { user } = useAuth();
@@ -33,11 +35,11 @@ const AdminHome = () => {
       </div>
       <div className="stats shadow flex items-center justify-center">
         <div className="stat">
-          <div className="stat-title">Total Users</div>
+          <div className="stat-title">Total Users<FaUsers></FaUsers></div> 
           <div className="stat-value">{adminState.users}</div>
         </div>
         <div className="stat">
-          <div className="stat-title">Total Donation Requests</div>
+          <div className="stat-title">Total Donation Requests <FaBook></FaBook></div>
           <div className="stat-value">{adminState.donationRequest}</div>
         </div>
         <div className="stat">

@@ -6,7 +6,10 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../Providers/AuthProvider';
 import districtsData from '../../assets/districts.json';
 import upazilasData from '../../assets/upazilas.json';
-import useAxiosPublic from '../../hooks/useAxiosPublic'; // Import your custom hook
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import Lottie from 'react-lottie';
+import animationData from '../../assets/Animation - 1736856643838.json'
+
 
 const Register = () => {
   const { register, handleSubmit, reset, formState: { errors }, watch } = useForm();
@@ -20,9 +23,9 @@ const Register = () => {
     createUser(data.email, data.password)
       .then((userCredential) => {
         console.log('User registered:', userCredential.user);
-        
+
         updateUserProfile(data.name, data.avatar)
-        .then(()=>{
+          .then(() => {
             console.log('User profile info Updated');
             // Save user info to the server
             axiosPublic.post('/users', data)
@@ -44,8 +47,8 @@ const Register = () => {
                   text: error.message,
                 });
               });
-        })
-        .catch(error => console.log(error));
+          })
+          .catch(error => console.log(error));
       })
       .catch((error) => {
         console.error('Error registering user:', error);
@@ -64,6 +67,12 @@ const Register = () => {
   const districts = districtsData;
   const upazilas = upazilasData.filter(upazila => upazila.district_id === districts.find(d => d.name === selectedDistrict)?.id);
 
+  const defaultOptions = {
+    loop: true, autoplay: true,
+    animationData: animationData,
+    rendererSettings: { preserveAspectRatio: 'xMidYMid slice' }
+  };
+
   return (
     <>
       <Helmet>
@@ -72,11 +81,9 @@ const Register = () => {
       <div className="hero bg-base-200 min-h-screen">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Register now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-              quasi. In deleniti eaque aut repudiandae et a id nisi.
-            </p>
+            <div className="text-center lg:text-left">
+              <Lottie options={defaultOptions} height={400} width={400} />
+            </div>
           </div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">

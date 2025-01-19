@@ -1,8 +1,8 @@
 import React from 'react';
 import Banner from './Banner/Banner';
 import Feature from './Feature/Feature';
-import Contact from './Contact/Contact';
 import { Helmet } from 'react-helmet-async';
+import ContactMe from './Contact/ContactMe';
 
 const Home = () => {
       return (
@@ -12,7 +12,7 @@ const Home = () => {
                   </Helmet>
                   <Banner></Banner>
                   <Feature></Feature>
-                  <Contact></Contact>
+                  <ContactMe></ContactMe>
             </div>
             
       );
