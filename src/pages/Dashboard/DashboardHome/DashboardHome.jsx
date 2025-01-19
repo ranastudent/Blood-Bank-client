@@ -15,7 +15,7 @@ const DashboardHome = () => {
         const token = localStorage.getItem('access_token'); // Retrieve the token from local storage
         const email = user?.email; // Use the logged-in user's email
         if (email) {
-          const response = await axios.get(`http://localhost:5000/users/${email}`, {
+          const response = await axios.get(`https://y-nine-inky.vercel.app/users/${email}`, {
             headers: {
               Authorization: `Bearer ${token}`, // Include the token in the request headers
             },

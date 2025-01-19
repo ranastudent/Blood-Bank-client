@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 const fetchDonationRequests = async ({ queryKey }) => {
   const [_, page, statusFilter] = queryKey;
   const token = localStorage.getItem('access_token'); // Retrieve the token from local storage
-  const response = await axios.get('http://localhost:5000/donation-requests', {
+  const response = await axios.get('https://y-nine-inky.vercel.app/donation-requests', {
     params: {
       page,
       status: statusFilter,
@@ -23,7 +23,7 @@ const fetchDonationRequests = async ({ queryKey }) => {
 
 const fetchUserRoleAndStatus = async (email) => {
   const token = localStorage.getItem('access_token'); // Retrieve the token from local storage
-  const response = await axios.get('http://localhost:5000/users', {
+  const response = await axios.get('https://y-nine-inky.vercel.app/users', {
     params: {
       email,
     },
@@ -36,7 +36,7 @@ const fetchUserRoleAndStatus = async (email) => {
 
 const updateDonationRequestStatus = async (id, status) => {
   const token = localStorage.getItem('access_token'); // Retrieve the token from local storage
-  const response = await axios.patch(`http://localhost:5000/donation-requests/${id}/status`, { status }, {
+  const response = await axios.patch(`https://y-nine-inky.vercel.app/donation-requests/${id}/status`, { status }, {
     headers: {
       Authorization: `Bearer ${token}` // Include the token in the request headers
     }

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const fetchUser = async (email) => {
   const token = localStorage.getItem('access_token'); // Retrieve the token from local storage
-  const response = await axios.get(`http://localhost:5000/users/${email}`, {
+  const response = await axios.get(`https://y-nine-inky.vercel.app/users/${email}`, {
     headers: {
       Authorization: `Bearer ${token}` // Include the token in the request headers
     }

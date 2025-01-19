@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 
 const fetchDonationRequests = async (email) => {
   try {
-    const { data } = await axios.get(`http://localhost:5000/donation-requests/${email}`);
+    const { data } = await axios.get(`https://y-nine-inky.vercel.app/donation-requests/${email}`);
     console.log('Fetched Donation Requests (API Response):', data.donationRequests);
     return (data.donationRequests || []).slice(0, 3); // Ensure donationRequests is an array
   } catch (error) {
@@ -18,7 +18,7 @@ const fetchDonationRequests = async (email) => {
 
 const updateDonationRequestStatus = async (id, status) => {
   try {
-    const response = await axios.patch(`http://localhost:5000/donation-requests/${id}/status`, { status });
+    const response = await axios.patch(`https://y-nine-inky.vercel.app/donation-requests/${id}/status`, { status });
     console.log('Updated Donation Request Status:', response.data);
     return response.data;
   } catch (error) {
@@ -28,7 +28,7 @@ const updateDonationRequestStatus = async (id, status) => {
 
 const deleteDonationRequest = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:5000/donation-requests/${id}`);
+    const response = await axios.delete(`https://y-nine-inky.vercel.app/donation-requests/${id}`);
     console.log('Deleted Donation Request:', response.data);
   } catch (error) {
     console.error('Error deleting donation request:', error);

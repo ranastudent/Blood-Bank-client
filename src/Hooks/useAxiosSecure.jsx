@@ -8,7 +8,7 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
 
   const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000',  // Update to your API's base URL
+    baseURL: 'https://y-nine-inky.vercel.app',  // Update to your API's base URL
   });
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 const fetchUsers = async ({ queryKey }) => {
   const [_, page, statusFilter] = queryKey;
-  const response = await axios.get('http://localhost:5000/users', {
+  const response = await axios.get('https://y-nine-inky.vercel.app/users', {
     params: {
       page,
       status: statusFilter,
@@ -15,12 +15,12 @@ const fetchUsers = async ({ queryKey }) => {
 };
 
 const updateUserStatus = async (id, status) => {
-  const response = await axios.patch(`http://localhost:5000/users/${id}/status`, { status });
+  const response = await axios.patch(`https://y-nine-inky.vercel.app/users/${id}/status`, { status });
   return response.data;
 };
 
 const updateUserRole = async (id, role) => {
-  const response = await axios.patch(`http://localhost:5000/users/${id}/role`, { role });
+  const response = await axios.patch(`https://y-nine-inky.vercel.app/users/${id}/role`, { role });
   return response.data;
 };
 
